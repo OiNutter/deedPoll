@@ -2,9 +2,13 @@
 #Filename: deedPoll.py
 
 import os
+import sys
 
-target = "../test/test.txt"
-name = "../test/test2.txt"
+for arg in sys.argv:
+	print(arg)
+
+target = sys.argv[1]
+name = sys.argv[2]
 
 os.rename(target,name);
 
