@@ -32,3 +32,4 @@ SCCS
 _$*
 /test/
 .pydevproject
+/.settings/
