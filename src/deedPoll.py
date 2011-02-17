@@ -6,7 +6,6 @@ from PyQt4 import QtCore, QtGui, uic
 
 import os
 import sys
-import string
 
 #for arg in sys.argv:
 #	print(arg)
@@ -30,18 +29,31 @@ class MainWindow(QtGui.QMainWindow):
 		#set button events
 		self.connect(self.browseButton,QtCore.SIGNAL('clicked()'),self.showFileDialog)
 		self.connect(self.renameButton,QtCore.SIGNAL('clicked()'),self.renameFile)
+		self.connect(self.newName,QtCore.SIGNAL('textEdited(QString)'),self.updatePreview)
 			
 	#show dialog to select initial file	
 	def showFileDialog(self):
-		#fileDialog = QtGui.QFileDialog(self)
-		#fileDialog.setFileMode(QtGui.QFileDialog.ExistingFile)
-		#file
 		self.origFile = QtGui.QFileDialog.getOpenFileName(self,'Select File',"/")
 		self.fileInput.setText(os.path.basename(self.origFile))
+		self.addPreviewRows()
 		
 	#perform rename operation
 	def renameFile(self):
 		os.rename(self.origFile,os.path.dirname(self.origFile) + "/" + self.newName.text())
+		
+	def addPreviewRows(self):
+		self.previewList.insertRow(0)
+		item = QtGui.QTableWidgetItem()
+		item.setText(os.path.basename(self.origFile))
+		newItem = QtGui.QTableWidgetItem()
+		newItem.setText(item.text())
+		self.previewList.setItem(0,0,item)
+		self.previewList.setItem(0,1,newItem)
+		
+	def updatePreview(self):
+		for row in range(0,self.previewList.rowCount()):
+			newItem = self.previewList.item(row,1)
+			newItem.setText(self.newName.text())
 		
 app = QtGui.QApplication(sys.argv)
 main = MainWindow()

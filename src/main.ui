@@ -98,7 +98,7 @@
     <property name="title">
      <string>Preview</string>
     </property>
-    <widget class="QListView" name="previewList">
+    <widget class="QTableWidget" name="previewList">
      <property name="geometry">
       <rect>
        <x>10</x>
@@ -107,6 +107,11 @@
        <height>281</height>
       </rect>
      </property>
+     <property name="columnCount">
+      <number>2</number>
+     </property>
+     <column/>
+     <column/>
     </widget>
    </widget>
    <widget class="QPushButton" name="renameButton">
